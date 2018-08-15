@@ -1,5 +1,6 @@
 package com.tolvgx.jsbridge;
 
+import android.util.JsonReader;
 import android.util.Log;
 import android.webkit.WebView;
 import android.widget.Toast;
@@ -23,11 +24,14 @@ import org.json.JSONObject;
  */
 
 public class BridgeImpl  {
+    /*
+        h5调用原生方法，不回调
+     */
     public static void testFormH5(WebView webView, JSONObject param, final Callback callback) {
         String type = param.optString("type");
         BrowserActivity activity = (BrowserActivity) webView.getContext();
 
-        Log.d("testNativeFun", "type: "+type);
+        Log.d("testFormH5", "type: "+type);
 
         switch (type) {
             case "fromH5":
@@ -37,11 +41,14 @@ public class BridgeImpl  {
         }
     }
 
+    /*
+        h5调用原生方法，并回调
+     */
     public static void testFormH5AndBack(WebView webView, JSONObject param, final Callback callback) {
         String type = param.optString("type");
         BrowserActivity activity = (BrowserActivity) webView.getContext();
 
-        Log.d("testNativeFun", "type: "+type);
+        Log.d("testFormH5AndBack", "type: "+type);
 
         try {
             JSONObject data = new JSONObject();
@@ -64,5 +71,17 @@ public class BridgeImpl  {
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    /*
+        原生调用h5后回调的原生方法
+     */
+    public static void testH5Func(WebView webView, JSONObject param, final Callback callback) {
+        String result = param.optString("result");
+        BrowserActivity activity = (BrowserActivity) webView.getContext();
+
+        Log.d("testH5Func", result+"");
+
+        Toast.makeText(activity, result+"", Toast.LENGTH_LONG).show();
     }
 }

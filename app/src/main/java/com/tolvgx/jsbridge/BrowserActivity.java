@@ -102,12 +102,12 @@ public class BrowserActivity extends AppCompatActivity {
 
         mWebView.loadUrl("file:///android_asset/index.html");
 
-        findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btn1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 JSONObject data = new JSONObject();
                 try {
-                    data.put("fromNative", "fromNative");
+                    data.put("fromNative", "不回调");
                     Callback callback = new Callback(mWebView);
                     JSONObject object = new JSONObject();
                     object.put("handlerName", "testH5Func");
@@ -119,5 +119,28 @@ public class BrowserActivity extends AppCompatActivity {
 
             }
         });
+
+        findViewById(R.id.btn2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                JSONObject data = new JSONObject();
+                try {
+                    data.put("fromNative", "回调");
+                    Callback callback = new Callback(mWebView);
+                    JSONObject object = new JSONObject();
+                    object.put("handlerName", "testH5Func");
+                    object.put("data", data);
+                    object.put("callbackId", getCallbackId());
+                    callback.apply(object);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+    }
+
+    private double getCallbackId(){
+        return Math.floor(Math.random() * (1 << 30));
     }
 }

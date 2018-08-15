@@ -210,6 +210,6 @@
 	//注册一个测试函数
 	JSBridge.registerHandler('testH5Func', function(data, callback) {
 		alert('测试函数接收到数据:' + JSON.stringify(data));
-		callback && callback('测试回传数据...');
+		callback && callback('{"result":"回调成功"}');
 	});
 })();			
