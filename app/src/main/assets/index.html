@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>JSBridge</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=0">
+        <script type="text/javascript" src="JSBridge.js"></script>
+    </head>
+    <body>
+        <button type="button" onclick="click1()">调用原生方法</button>
+        <br/>
+        <br/>
+        <button type="button" onclick="click2()">调用原生方法并回调</button>
+    </body>
+
+    <script>
+        function click1(){
+            JSBridge.callHandler('testFormH5',{type:'fromH5'},function(res){})
+        }
+        function click2(){
+            JSBridge.callHandler('testFormH5AndBack',{type:'fromH5AndBack'},function(res){
+                alert(res.formNative);
+            })
+        }
+    </script>
+</html>
